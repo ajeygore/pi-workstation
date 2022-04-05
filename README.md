@@ -6,6 +6,10 @@ You can SSH into or access this machine using 10.55.0.1 - if you powered this ma
 
 iPad <-- USB C --> Rpi 4
 
+Impatient?
+
+**sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
+
 ### Use case?
 
 The simple usecase is that you connect Pi with your iPad, you get full featured working environment, with VIM and customised YADR vim distribution, with many nifty defaults.
