@@ -8,7 +8,12 @@ iPad <-- USB C --> Rpi 4
 
 Impatient?
 
+```
+#Export your user name
+export RPI_USER=rpi_workstation
+
 **sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"**
+```
 
 ### Use case?
 
