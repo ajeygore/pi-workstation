@@ -8,7 +8,7 @@ iPad <-- USB C --> Rpi 4
 
 Impatient?
 
-**sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
+**sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"**
 
 ### Use case?
 
