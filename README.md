@@ -12,7 +12,8 @@ Impatient?
 #Export your user name
 export RPI_USER=rpi_workstation
 
-**sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"**
+#Copy and paste following command in your commandline
+sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
 ```
 
 ### Use case?
