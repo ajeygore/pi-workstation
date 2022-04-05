@@ -8,7 +8,13 @@ iPad <-- USB C --> Rpi 4
 
 Impatient?
 
-**sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
+```
+#Export your user name
+export RPI_USER=rpi_workstation
+
+#Copy and paste following command in your commandline
+sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
+```
 
 ### Use case?
 
