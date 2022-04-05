@@ -1,0 +1,58 @@
+---
+  - name: "Playing with Ansible and Git"
+    hosts: localhost
+    connection: local 
+    tasks:
+
+    - name: install screen
+      package:
+        name: screen
+        state: present
+
+    - name: install vlc
+      package: 
+        name: 
+          - vlc 
+          - vlc-bin
+          - vlc-plugin-base
+          - ffmpeg
+        state: present
+
+    - name: Install Ruby
+      package: 
+        name: ruby
+        state: present
+
+    - name: Install yadr packages
+      package:
+        name:
+          - software-properties-common
+          - autoconf 
+          - build-essential
+          - curl
+          - fasd
+          - fontconfig
+          - git
+          - python
+          - python-setuptools
+          - python-dev
+          - ruby-full
+          - sudo
+          - tmux
+          - vim
+          - wget
+          - zsh
+          - golang
+          - docker
+          - docker-compose
+        state: present
+
+    - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
+      ansible.builtin.user:
+        name: <change user name>
+        shell: /usr/bin/zsh
+        groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio
+        append: yes
+        home: /home/<change user name>
+        create_home: true
+        password: "$y$j9T$X.4XGDcd.fPKu3BGr0yTY/$Uvu.HZftq7Qkrt8JSmRuCPqYK4X7c.fV0f66PAzDTg8" 

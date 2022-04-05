@@ -1,0 +1,109 @@
+---
+  - name: "Configuring Raspberry Pi to recognise USB Power interface as networking"
+    hosts: localhost
+    connection: local 
+    tasks:
+
+    - name: Add dtoverlay module
+      ansible.builtin.lineinfile:
+        path: /boot/config.txt
+        insertbefore: BOF
+        line: dtoverlay=dwc2
+        create: yes
+
+    - name: Add modules-load=dwc2 to end of boot commandline
+      replace:
+        dest: /boot/cmdline.txt
+        regexp: '^(console(?!.*\b modules-load=dwc2\b).*)$'
+        replace: '\1 modules-load=dwc2'
+
+    - name: Add libcomposite
+      ansible.builtin.lineinfile:
+        path: /etc/modules
+        line: libcomposite
+        create: yes
+
+    - name: Do not allow ip address allocation on usb0
+      ansible.builtin.lineinfile:
+        path: /etc/dhcpd.conf
+        line: denyinterfaces usb0
+        create: yes
+
+    - name: install dnsmasq
+      package:
+        name: dnsmasq
+        state: present
+
+    - name: Check that the somefile.conf exists
+      stat:
+        path: /boot/ssh
+      register: ssh_server_status
+
+    - name: Creating /boot/ssh so that RPI starts ssh at the start
+      file:
+        path: "/boot/ssh"
+        state: touch
+      when: not ssh_server_status.stat.exists
+
+
+    - name: Creating usb interface 
+      copy:
+        dest: "/etc/dnsmasq.d/usb"
+        content: |
+          interface=usb0
+          dhcp-range=10.55.0.2,10.55.0.6,255.255.255.248,1h
+          dhcp-option=3
+          leasefile-ro
+
+    - name: Creating assign static IP address to USB interface
+      copy:
+        dest: "/etc/network/interfaces.d/usb0"
+        content: |
+          auto usb0
+          allow-hotplug usb0
+          iface usb0 inet static
+            address 10.55.0.1
+            netmask 255.255.255.248
+
+    - name: Create usb.sh startup file
+      copy:
+       dest: "/root/usb.sh"
+       mode: 0755
+       content: |
+         #!/bin/bash
+         cd /sys/kernel/config/usb_gadget/
+         mkdir -p pi4
+         cd pi4
+         echo 0x1d6b > idVendor # Linux Foundation
+         echo 0x0104 > idProduct # Multifunction Composite Gadget
+         echo 0x0100 > bcdDevice # v1.0.0
+         echo 0x0200 > bcdUSB # USB2
+         echo 0xEF > bDeviceClass
+         echo 0x02 > bDeviceSubClass
+         echo 0x01 > bDeviceProtocol
+         mkdir -p strings/0x409
+         echo "fedcba9876543211" > strings/0x409/serialnumber
+         echo "Ben Hardill" > strings/0x409/manufacturer
+         echo "PI4 USB Device" > strings/0x409/product
+         mkdir -p configs/c.1/strings/0x409
+         echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
+         echo 250 > configs/c.1/MaxPower
+         ## Add functions here
+         ## see gadget configurations below
+         ## End functions
+         mkdir -p functions/ecm.usb0
+         HOST="00:dc:c8:f7:75:14" # "HostPC"
+         SELF="00:dd:dc:eb:6d:a1" # "BadUSB"
+         echo $HOST > functions/ecm.usb0/host_addr
+         echo $SELF > functions/ecm.usb0/dev_addr
+         ln -s functions/ecm.usb0 configs/c.1/
+         udevadm settle -t 5 || :
+         ls /sys/class/udc > UDC
+         ifup usb0
+         service dnsmasq restart
+
+    - name: Insert usb.sh to rc.local before 'exit 0'
+      lineinfile:
+        path: /etc/rc.local
+        line: '/root/usb.sh'
+        insertbefore: exit 0
