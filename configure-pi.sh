@@ -1,4 +1,3 @@
-
 #!/bin/sh
 sudo apt-get update && apt-get install -yqq locales lsb-release software-properties-common ansible wget && apt-get clean  
 LANGUAGE=en_US.UTF-8
