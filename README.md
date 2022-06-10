@@ -80,3 +80,7 @@ network={
 ```
 * plug the pi in your USB port, and power it up
 * login to pi, clone this repo and run appropriate sh for the setup, devel only sets up the dev env, while networking, configures pi 4's USB C port as P2P network interface.
+
+
+#### Credits
+* https://www.linux-projects.org/uv4l/tutorials/play-retropie-in-browser/ (for uv4l and retropie setup)
