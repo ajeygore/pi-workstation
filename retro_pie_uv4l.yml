@@ -1,0 +1,23 @@
+---
+  - name: "Installing Retro Pie and UV4L on Raspbian"
+    hosts: localhost
+    connection: local 
+    tasks:
+
+    - name: install UV4l
+      package: 
+        name: 
+          - uv4l 
+          - uv4l-raspidisp 
+          - uv4l-raspidisp-extras 
+          - uv4l-server
+          - uv4l-webrtc
+          - uv4l-demos
+        state: present
+
+    - name: Add snd-aloop to /etc/modules
+      ansible.builtin.lineinfile:
+        path: /etc/modules
+        line: snd-aloop
+        create: yes
+
