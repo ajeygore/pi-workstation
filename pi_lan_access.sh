@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $1 == "--help" ]; then
-    echo "Usage: enable_ssh_new.sh \"<boot volume>\" \"<wifi name>\" \"<wifi password>\""
+    aecho "Usage: pi_lan_access.sh \"<boot volume>\" \"<wifi name>\" \"<wifi password>\""
     exit 1
 fi
 
@@ -21,7 +21,7 @@ wifi_password=$3
 
 if [ $# -eq 1 ]; then
 echo "Enabling SSH, creating file ssh"
-touch $1/ssh
+touch $boot_volume/ssh
 
 echo ""
 echo "Enabling wireless access"
@@ -31,10 +31,10 @@ echo "Please provide WiFi name:"
 read wifi_ssid
 echo "Please provide WiFi password"
 read wifi_password
-echo "Writing wpa_supplicant.info to $1 with WiFi: $wifi_ssid and Passwird: $wifi_password "
+echo "Writing wpa_supplicant.info to $boot_volume with WiFi: $wifi_ssid and Passwird: $wifi_password "
 fi
 
-wf="$1/wpa_supplicant.conf"
+wf="$boot_volume /wpa_supplicant.conf"
 
 echo "country=us" > $wf
 echo "update_config=1" >> $wf 
