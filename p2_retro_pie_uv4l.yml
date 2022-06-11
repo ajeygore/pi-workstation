@@ -6,11 +6,11 @@
 
 
     - name: Add UV4L project keys
-      ansible.builtin.apt_key:
+      apt_key:
         url: https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc
         state: present
     - name: Add UV4L project repository
-      ansible.builtin.apt_repository:
+      apt_repository:
         repo: deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main
         state: present
 
@@ -26,21 +26,16 @@
         state: present
 
     - name: "Add snd-aloop to /etc/modules"
-      ansible.builtin.lineinfile:
+      lineinfile:
         path: /etc/modules
         line: snd-aloop
         create: yes
     - name: 'Configure ALSA'
-      ansible.builtin.lineinfile:
+      lineinfile:
         path: /etc/modprobe.d/alsa-base.conf
         line: options snd-aloop index=1
         create: yes
         state: present
-
-    - name: Recursively remove directory
-        ansible.builtin.file:
-        path: ~/.asoundrc
-        state: absent
 
     - name: Download asound.conf
       get_url:
@@ -48,10 +43,10 @@
         dest: /etc/asound.conf
         mode: '0440'
 
-    - name: Restart network service for interface eth0
-       ansible.builtin.service:
-         name: alsa-restore
-         state: restarted
+    - name: Restart alsa-restore service
+      service:
+        name: alsa-restore
+        state: restarted
 
 
     - name: Download raspberry pi display.conf
