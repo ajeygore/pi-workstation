@@ -4,7 +4,7 @@
     connection: local 
     tasks:
 
-    - name: install UV4l
+    - name: "Install UV4l"
       package: 
         name: 
           - uv4l 
@@ -15,9 +15,12 @@
           - uv4l-demos
         state: present
 
-    - name: Add snd-aloop to /etc/modules
+    - name: "Add snd-aloop to /etc/modules"
       ansible.builtin.lineinfile:
         path: /etc/modules
         line: snd-aloop
         create: yes
+    - name: 'Configure ALSA'
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/alsa-base.conf
 
