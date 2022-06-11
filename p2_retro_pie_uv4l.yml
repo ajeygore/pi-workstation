@@ -37,3 +37,27 @@
         create: yes
         state: present
 
+    - name: Recursively remove directory
+        ansible.builtin.file:
+        path: ~/.asoundrc
+        state: absent
+
+    - name: Download asound.conf
+      get_url:
+        url: https://www.linux-projects.org/home/wp-content/uploads/2019/03/asound.conf
+        dest: /etc/asound.conf
+        mode: '0440'
+
+    - name: Restart network service for interface eth0
+       ansible.builtin.service:
+         name: alsa-restore
+         state: restarted
+
+
+    - name: Download raspberry pi display.conf
+      get_url:
+        url: https://www.linux-projects.org/home/wp-content/uploads/2019/03/uv4l-raspidisp.conf
+        dest: /etc/uv4l/uv4l-raspidisp.conf
+        mode: '0440'
+
+
