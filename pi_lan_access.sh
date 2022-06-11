@@ -16,26 +16,26 @@ fi
 
 #enabling ssh
 
+echo "Enabling SSH, creating file ssh"
+touch "$boot_volume/ssh"
+
 wifi_ssid=$2
 wifi_password=$3
 
 if [ $# -eq 1 ]; then
-echo "Enabling SSH, creating file ssh"
-touch $boot_volume/ssh
-
-echo ""
-echo "Enabling wireless access"
-echo "========================"
-echo ""
-echo "Please provide WiFi name:"
-read wifi_ssid
-echo "Please provide WiFi password"
-read wifi_password
-echo "Writing wpa_supplicant.info to $boot_volume with WiFi: $wifi_ssid and Passwird: $wifi_password "
+    echo ""
+    echo "Enabling wireless access"
+    echo "========================"
+    echo ""
+    echo "Please provide WiFi name:"
+    read wifi_ssid
+    echo "Please provide WiFi password"
+    read wifi_password
 fi
 
-wf="$boot_volume /wpa_supplicant.conf"
+wf="$boot_volume/wpa_supplicant.conf"
 
+echo "Writing wpa_supplicant.info to $boot_volume with WiFi: $wifi_ssid and Passwird: $wifi_password "
 echo "country=us" > $wf
 echo "update_config=1" >> $wf 
 echo "ctrl_interface=/var/run/wpa_supplicant" >> $wf
