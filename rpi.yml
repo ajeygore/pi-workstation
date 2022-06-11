@@ -52,10 +52,6 @@
       become_user: "{{ lookup('env', 'RPI_USER') }}"
       shell: "curl -sSL https://get.rvm.io | bash"
 
-    - name: Install YADR
-      become_user: "{{ lookup('env', 'RPI_USER') }}"
-      shell: "curl -sSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh | bash"
-
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
       user:
         name: "{{ lookup('env', 'RPI_USER') }}"
