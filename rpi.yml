@@ -65,6 +65,19 @@
         deb: "/tmp/code-server.deb"
       when: code_server_check_deb.rc == 1
 
+    - name: setup default password for code-server
+      copy:
+        dest: /home/{{ lookup('env', 'RPI_USER')}}/.config/code-server/config.yaml
+        mode: 0644
+        owner: "{{ lookup('env', 'RPI_USER')}}"
+        group: "{{ lookup('env', 'RPI_USER')}}"
+        content: |
+          bind-addr: 0.0.0.0:8080
+          auth: password
+          password: c0d3server
+          cert: false
+
+
     - name: Restart service code-server, in all cases
       service:
         name: code-server@{{ lookup('env', 'RPI_USER')}}
