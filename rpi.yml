@@ -1,5 +1,5 @@
 ---
-  - name: "Playing with Ansible and Git"
+  - name: "Setting up Raspberry Pi as workstation"
     hosts: localhost
     connection: local 
     tasks:
