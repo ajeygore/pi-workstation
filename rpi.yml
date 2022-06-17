@@ -65,6 +65,11 @@
         deb: "/tmp/code-server.deb"
       when: code_server_check_deb.rc == 1
 
+    - name: Restart service code-server, in all cases
+      service:
+        name: code-server@{{ lookup('env', 'RPI_USER')}}
+        state: restarted
+
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
       user:
         name: "{{ lookup('env', 'RPI_USER') }}"
