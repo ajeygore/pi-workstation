@@ -12,7 +12,7 @@ Three steps process
 * ssh in raspberry pi and then run configuration script
 
 
-### Setup WiFi and enable ssh (If you are not using rpi-imager)
+### Setup WiFi and enable ssh (If you are not using rpi-imager, rpi-manager advanced settings allow you to do this)
 
 You need to touch ssh file on boot volume and create a wpa supplicant file. Following file will do that for you
 
@@ -31,7 +31,14 @@ then execute file in your laptop with SD card
 Insert the SD card in Pi, wait for it to bootup, usually you should be able to access it using hostname raspberry pi, then ssh into the box, and follow the next steps
 
 
-Impatient, and you are RPi 4
+You can login to raspberry pi - with either default hostname or the hostname you configured. 
+
+with default hostname, probably you should be able to login using following
+
+```
+ssh pi@raspberrypi.local
+```
+The default password is "raspberry", once you login, please follow next steps.
 
 ```
 #Export your user name
