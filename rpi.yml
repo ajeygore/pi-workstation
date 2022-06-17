@@ -47,9 +47,27 @@
           - docker-compose
         state: present
 
+    - name: Check if code-server is installed
+      command: dpkg-query -W code-server
+      register: code_server_check_deb
+      failed_when: code_server_check_deb.rc > 1
+      changed_when: code_server_check_deb.rc == 1
+
+    - name: Get code-server package
+      get_url:
+        url: https://github.com/coder/code-server/releases/download/v4.4.0/code-server_4.4.0_armhf.deb
+        dest: /tmp/code-server.deb
+        mode: '0440'
+      when: code_server_check_deb.rc == 1
+
+    - name: Install code-server
+      apt:
+        deb: "/tmp/code-server.deb"
+      when: code_server_check_deb.rc == 1
+
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
-      ansible.builtin.user:
-        name: {{ lookup('env', 'RPI_USER') }}
+      user:
+        name: "{{ lookup('env', 'RPI_USER') }}"
         shell: /usr/bin/zsh
         groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio
         append: yes
