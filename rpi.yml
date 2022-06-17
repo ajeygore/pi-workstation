@@ -47,15 +47,12 @@
           - docker-compose
         state: present
 
-
-    - name: Install RVM
-      become_user: "{{ lookup('env', 'RPI_USER') }}"
-      shell: "curl -sSL https://get.rvm.io | bash"
-
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
-      user:
-        name: "{{ lookup('env', 'RPI_USER') }}"
-        shell: /usr/bin/bash
-        groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio,rvm
+      ansible.builtin.user:
+        name: {{ lookup('env', 'RPI_USER') }}
+        shell: /usr/bin/zsh
+        groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio
         append: yes
-        password: "$y$j9T$X.4XGDcd.fPKu3BGr0yTY/$Uvu.HZftq7Qkrt8JSmRuCPqYK4X7c.fV0f66PAzDTg8"
+        home: /home/{{ lookup('env', 'RPI_USER') }}
+        create_home: true
+        password: "$y$j9T$X.4XGDcd.fPKu3BGr0yTY/$Uvu.HZftq7Qkrt8JSmRuCPqYK4X7c.fV0f66PAzDTg8" 

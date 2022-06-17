@@ -4,50 +4,16 @@ Raspberry Pi workstation - Ansible scripts for configuring Raspberry Pi
 These scripts allow you to use your Raspberry Pi 4 as developer workstation, when powered with iPad or even with some other machine, this Pi provides network address 10.55.0.1 to itself, and dhcp address to your machine.
 You can SSH into or access this machine using 10.55.0.1 - if you powered this machine using USB port on your device
 
-So if you want to carry a portable development environment, you can use this to get going.
+iPad <-- USB C --> Rpi 4
 
-Three steps process
-* format sd card
-* enable ssh
-* ssh in raspberry pi and then run configuration script
-
-
-### Setup WiFi and enable ssh (assuming you are on mac)
-
-You need to touch ssh file on boot volume and create a wpa supplicant file. Following file will do that for you
-
-Download enable_ssh_nw.sh
-
-```
-wget  https://raw.githubusercontent.com/ajeygore/pi-workstation/main/enable_ssh_nw.sh
-```
-
-then execute file in your laptop with SD card
-
-```
-./enable_ssh_nw.sh <volume name usually /Volumes/boot> <WiFi SSID> <WiFi password>
-```
-
-Insert the SD card in Pi, wait for it to bootup, usually you should be able to access it using hostname raspberry pi, then ssh into the box, and follow the next steps
-
-
-Impatient, and you are RPi 4
+Impatient?
 
 ```
 #Export your user name
 export RPI_USER=rpi_workstation
-```
 
-Then copy and paste following command to setup development environment and networking for Raspberry Pi 4
-
-```
+#Copy and paste following command in your commandline
 sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/configure-pi.sh `"
-```
-
-If you are on RPi 3/3b please use following command, it does not setup networking
-
-```
-sh -c "`curl -fsSL https://raw.githubusercontent.com/ajeygore/pi-workstation/main/rpi-devel-env.sh `"
 ```
 
 ### Use case?
@@ -80,7 +46,3 @@ network={
 ```
 * plug the pi in your USB port, and power it up
 * login to pi, clone this repo and run appropriate sh for the setup, devel only sets up the dev env, while networking, configures pi 4's USB C port as P2P network interface.
-
-
-#### Credits
-* https://www.linux-projects.org/uv4l/tutorials/play-retropie-in-browser/ (for uv4l and retropie setup)
