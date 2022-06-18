@@ -14,12 +14,12 @@ Three steps process
 
 ### Setup WiFi and enable ssh (If you are not using rpi-imager, rpi-manager advanced settings allow you to do this)
 
-You need to touch ssh file on boot volume and create a wpa supplicant file. Following file will do that for you
+Raspberry Pi shell and WiFi access can be enabled by RPi manager, if you want to do it manually, then you need to create two files; 'ssh' and 'wpa_supplicant.conf', I have included a script to do it for you.
 
-Download enable_ssh_nw.sh
+Download pi_lan_access.sh
 
 ```
-wget  https://raw.githubusercontent.com/ajeygore/pi-workstation/main/enable_ssh_nw.sh
+wget  https://raw.githubusercontent.com/ajeygore/pi-workstation/main/pi_lan_access.sh
 ```
 
 then execute file in your laptop with SD card
