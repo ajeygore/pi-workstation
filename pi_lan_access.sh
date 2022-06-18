@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $1 == "--help" ]; then
-    aecho "Usage: pi_lan_access.sh \"<boot volume>\" \"<wifi name>\" \"<wifi password>\""
+    echo "Usage: pi_lan_access.sh \"<boot volume>\" \"<wifi name>\" \"<wifi password>\""
     exit 1
 fi
 
