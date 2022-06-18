@@ -65,6 +65,12 @@
         deb: "/tmp/code-server.deb"
       when: code_server_check_deb.rc == 1
 
+    - name: Start service code-server, in all cases
+      service:
+        name: code-server@{{ lookup('env', 'RPI_USER')}}
+        state: started
+        enabled: yes
+
     - name: setup default password for code-server
       copy:
         dest: /home/{{ lookup('env', 'RPI_USER')}}/.config/code-server/config.yaml
@@ -78,15 +84,15 @@
           cert: false
 
 
-    - name: Restart service code-server, in all cases
+    - name: Reload service code-server, in all cases
       service:
         name: code-server@{{ lookup('env', 'RPI_USER')}}
-        state: restarted
+        state: reloaded
 
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
       user:
         name: "{{ lookup('env', 'RPI_USER') }}"
-        shell: /usr/bin/zsh
+        shell: /usr/bin/bash
         groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio
         append: yes
         home: /home/{{ lookup('env', 'RPI_USER') }}
