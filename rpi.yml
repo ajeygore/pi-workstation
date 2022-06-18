@@ -87,7 +87,7 @@
     - name: Reload service code-server, in all cases
       service:
         name: code-server@{{ lookup('env', 'RPI_USER')}}
-        state: reloaded
+        state: restarted
 
     - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
       user:
