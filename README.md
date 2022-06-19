@@ -1,18 +1,28 @@
 # pi-workstation
-Raspberry Pi workstation - Ansible scripts for configuring Raspberry Pi
+Raspberry Pi workstation project converts your Raspberry Pi into a developer workstation. The aim is to provide a web-enabled experience.
+
+This project configures 
+
+* Debian development environment
+* Sets up node, python, ruby
+* Provides you with code-server, so that you can access the environment over web.
+* Optionally you can get vim enhancements with YADR, and have ruby version manager
+* [TODO] configure and automate GoTTY or ttyd so that we can enable web access for terminal
+* If you are using Raspberry Pi 4+ then it will also convert your USB C as network adapter and setup mini-network between USB C ports - whether it's tablet or PC. You will be able to access Raspberry Pi with 10.55.0.1 as static IP Addresses
+
+The reason this is done, so that you can use your tablet (in this case iPad) and use RPi is mini workstation.
 
 These scripts allow you to use your Raspberry Pi 4 as developer workstation, when powered with iPad or even with some other machine, this Pi provides network address 10.55.0.1 to itself, and dhcp address to your machine.
-You can SSH into or access this machine using 10.55.0.1 - if you powered this machine using USB port on your device
+You can SSH into or access this machine using 10.55.0.1 - if you powered this machine using USB port on your device.
 
-So if you want to carry a portable development environment, you can use this to get going.
-
-Three steps process
-* format sd card
-* enable ssh
-* ssh in raspberry pi and then run configuration script
+### Getting Started
+* Format SD card (Please use rpi-managr if possible)
+* ssh into raspberry pi and run our scripts
+* you should be able to access raspberry pi once the scripts are over at http://<machine_name.local>>:8080 
 
 
-### Setup WiFi and enable ssh (If you are not using rpi-imager, rpi-manager advanced settings allow you to do this)
+
+### Setup WiFi and enable ssh (Skip if you are using rpi manager)
 
 Raspberry Pi shell and WiFi access can be enabled by RPi manager, if you want to do it manually, then you need to create two files; 'ssh' and 'wpa_supplicant.conf', I have included a script to do it for you.
 
