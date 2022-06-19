@@ -41,6 +41,8 @@ then execute file in your laptop with SD card
 Insert the SD card in Pi, wait for it to bootup, usually you should be able to access it using hostname raspberry pi, then ssh into the box, and follow the next steps
 
 
+### Setting up workstation environment
+
 You can login to raspberry pi - with either default hostname or the hostname you configured. 
 
 with default hostname, probably you should be able to login using following
