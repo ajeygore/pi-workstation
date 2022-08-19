@@ -1,0 +1,40 @@
+---
+  - name: "Setting up Raspberry Pi as workstationt"
+    hosts: localhost
+    connection: local
+    tasks:
+
+    - name: Install yadr packages
+      package:
+        name:
+          - software-properties-common
+          - screen
+          - ruby-full
+          - autoconf
+          - build-essential
+          - curl
+          - fasd
+          - fontconfig
+          - git
+          - sudo
+          - tmux
+          - vim
+          - wget
+          - zsh
+          - golang
+          - docker
+          - docker-compose
+        state: present
+    - name: Add RVM repository
+      apt_repository:
+        repo: ppa:rael-gc/rvm
+        state: present
+    - name: Install RVM
+      package:
+        name:
+          - rvm
+    - name: Adding user to rvm group
+      user:
+        name: 'ajey'
+        groups: rvm
+        append: yes
