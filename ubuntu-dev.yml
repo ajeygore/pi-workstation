@@ -1,5 +1,5 @@
 ---
-  - name: "Setting up Raspberry Pi as workstationt"
+  - name: "Setting up Ubuntu workstation"
     hosts: localhost
     connection: local
     tasks:
@@ -24,6 +24,17 @@
           - golang
           - docker
           - docker-compose
+          - autoconf
+          - bison
+          - libssl-dev
+          - libyaml-dev
+          - libreadline6-dev
+          - zlib1g-dev
+          - libncurses5-dev
+          - libffi-dev
+          - libgdbm6
+          - libdb-dev
+
         state: present
     - name: Add RVM repository
       apt_repository:
