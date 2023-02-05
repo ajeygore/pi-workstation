@@ -89,12 +89,4 @@
         name: code-server@{{ lookup('env', 'RPI_USER')}}
         state: restarted
 
-    - name: Add my user and add myself to admin/developers, 'raspberry' as password and add to RVM group
-      user:
-        name: "{{ lookup('env', 'RPI_USER') }}"
-        shell: /usr/bin/bash
-        groups: adm,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio
-        append: yes
-        home: /home/{{ lookup('env', 'RPI_USER') }}
-        create_home: true
-        password: "$y$j9T$X.4XGDcd.fPKu3BGr0yTY/$Uvu.HZftq7Qkrt8JSmRuCPqYK4X7c.fV0f66PAzDTg8" 
+  
