@@ -43,50 +43,8 @@
           - wget
           - zsh
           - golang
-          - docker
-          - docker-compose
         state: present
 
-    - name: Check if code-server is installed
-      command: dpkg-query -W code-server
-      register: code_server_check_deb
-      failed_when: code_server_check_deb.rc > 1
-      changed_when: code_server_check_deb.rc == 1
 
-    - name: Get code-server package
-      get_url:
-        url: https://github.com/coder/code-server/releases/download/v4.4.0/code-server_4.4.0_armhf.deb
-        dest: /tmp/code-server.deb
-        mode: '0440'
-      when: code_server_check_deb.rc == 1
-
-    - name: Install code-server
-      apt:
-        deb: "/tmp/code-server.deb"
-      when: code_server_check_deb.rc == 1
-
-    - name: Start service code-server, in all cases
-      service:
-        name: code-server@{{ lookup('env', 'RPI_USER')}}
-        state: started
-        enabled: yes
-
-    - name: setup default password for code-server
-      copy:
-        dest: /home/{{ lookup('env', 'RPI_USER')}}/.config/code-server/config.yaml
-        mode: 0644
-        owner: "{{ lookup('env', 'RPI_USER')}}"
-        group: "{{ lookup('env', 'RPI_USER')}}"
-        content: |
-          bind-addr: 0.0.0.0:8080
-          auth: password
-          password: c0d3server
-          cert: false
-
-
-    - name: Reload service code-server, in all cases
-      service:
-        name: code-server@{{ lookup('env', 'RPI_USER')}}
-        state: restarted
 
   
